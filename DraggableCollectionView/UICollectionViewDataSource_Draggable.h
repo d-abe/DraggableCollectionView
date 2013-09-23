@@ -19,5 +19,6 @@
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)toIndexPath;
 - (void)collectionView:(UICollectionView *)collectionView alterTranslation:(CGPoint *)translation;
 - (CGAffineTransform)collectionView:(UICollectionView *)collectionView transformForDraggingItemAtIndexPath:(NSIndexPath *)indexPath duration:(NSTimeInterval *)duration;
+- (void)collectionView:(UICollectionView *)collectionView mockCellWhenDragging:(UIImageView *)mockCell;
 
 @end

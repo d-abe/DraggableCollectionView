@@ -247,8 +247,10 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
 				[UIView animateWithDuration:duration animations:^{
 					mockCell.transform = transform;
 				} completion:nil];
+			} else if ([self.collectionView.dataSource respondsToSelector:@selector(collectionView:mockCellWhenDragging:)]) {
+				[(id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource collectionView:self.collectionView mockCellWhenDragging:mockCell];
 			}
-            
+
             // Start warping
             lastIndexPath = indexPath;
             self.layoutHelper.fromIndexPath = indexPath;
