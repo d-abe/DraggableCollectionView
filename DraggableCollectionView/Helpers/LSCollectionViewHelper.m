@@ -264,13 +264,21 @@ typedef NS_ENUM(NSInteger, _ScrollingDirection) {
                 return;
             }
             // Tell the data source to move the item
+            BOOL shouldMove = YES;
+            
+            if ([self.collectionView.dataSource respondsToSelector:@selector(collectionView:shouldMoveItemAtIndexPath:toIndexPath:)]) {
+                shouldMove = [(id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource collectionView:self.collectionView
+                                                                                                  shouldMoveItemAtIndexPath:self.layoutHelper.fromIndexPath
+                                                                                                          toIndexPath:self.layoutHelper.toIndexPath];
+            }
+            
             [(id<UICollectionViewDataSource_Draggable>)self.collectionView.dataSource collectionView:self.collectionView
-																				 moveItemAtIndexPath:self.layoutHelper.fromIndexPath
-																						 toIndexPath:self.layoutHelper.toIndexPath];
+                                                                                 moveItemAtIndexPath:self.layoutHelper.fromIndexPath
+                                                                                         toIndexPath:self.layoutHelper.toIndexPath];
             
             // Move the item
             [self.collectionView performBatchUpdates:^{
-                [self.collectionView moveItemAtIndexPath:self.layoutHelper.fromIndexPath toIndexPath:self.layoutHelper.toIndexPath];
+                if(shouldMove) [self.collectionView moveItemAtIndexPath:self.layoutHelper.fromIndexPath toIndexPath:self.layoutHelper.toIndexPath];
                 self.layoutHelper.fromIndexPath = nil;
                 self.layoutHelper.toIndexPath = nil;
             } completion:nil];
