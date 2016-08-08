@@ -25,7 +25,7 @@
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-    return [self.layoutHelper modifiedLayoutAttributesForElements:[super layoutAttributesForElementsInRect:rect]];
+    return [self.layoutHelper modifiedLayoutAttributesForElements:[[super layoutAttributesForElementsInRect:rect] copy]];
 }
 
 @end
