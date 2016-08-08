@@ -25,7 +25,12 @@
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-    return [self.layoutHelper modifiedLayoutAttributesForElements:[[super layoutAttributesForElementsInRect:rect] copy]];
+    NSArray *superArray = [super layoutAttributesForElementsInRect:rect];
+    if(superArray == nil) return nil;
+    
+    NSArray *copyArray = [[NSArray alloc] initWithArray:superArray copyItems:YES];
+    
+    return [self.layoutHelper modifiedLayoutAttributesForElements:copyArray];
 }
 
 @end
